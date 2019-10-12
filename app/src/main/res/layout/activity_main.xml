@@ -5,15 +5,59 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:background="@drawable/background">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+        android:id="@+id/button"
+        style="@style/ButtonStyle"
+        android:layout_width="597dp"
+        android:layout_height="156dp"
+        android:fontFamily="sans-serif-light"
+        android:text="discover"
+        android:typeface="sans"
+        tools:layout_editor_absoluteX="282dp"
+        tools:layout_editor_absoluteY="732dp" />
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/ButtonStyle"
+        android:layout_width="597dp"
+        android:layout_height="156dp"
+        android:fontFamily="sans-serif-light"
+        android:text="start new project"
+        tools:layout_editor_absoluteX="282dp"
+        tools:layout_editor_absoluteY="984dp" />
+
+    <Button
+        android:id="@+id/button3"
+        style="@style/ButtonStyle"
+        android:layout_width="597dp"
+        android:layout_height="156dp"
+        android:fontFamily="sans-serif-light"
+        android:text="view my projects"
+        tools:layout_editor_absoluteX="282dp"
+        tools:layout_editor_absoluteY="1232dp" />
+
+    <Button
+        android:id="@+id/button4"
+        style="@style/ButtonStyle"
+        android:layout_width="597dp"
+        android:layout_height="156dp"
+        android:fontFamily="sans-serif-light"
+        android:text="view my sounds"
+        tools:layout_editor_absoluteX="282dp"
+        tools:layout_editor_absoluteY="1481dp" />
+
+    <Button
+        android:id="@+id/button5"
+        style="@style/ButtonStyle"
+        android:layout_width="233dp"
+        android:layout_height="100dp"
+        android:fontFamily="sans-serif-light"
+        android:text="settings"
+        tools:layout_editor_absoluteX="708dp"
+        tools:layout_editor_absoluteY="101dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
