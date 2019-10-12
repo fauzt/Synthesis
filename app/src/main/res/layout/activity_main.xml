@@ -17,7 +17,7 @@
         android:text="discover"
         android:typeface="sans"
         tools:layout_editor_absoluteX="282dp"
-        tools:layout_editor_absoluteY="732dp" />
+        tools:layout_editor_absoluteY="732dp"/>
 
     <Button
         android:id="@+id/button2"

@@ -1,5 +1,6 @@
 package com.example.synthesis;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -47,7 +48,6 @@ public class CameraActivity extends AppCompatActivity {
     private void startCamera() {
         CameraX.unbindAll();
 
-        Rational aspectRatio = new Rational(textureView.getWidth(), textureView.getHeight());
         Size screen = new Size(textureView.getWidth(), textureView.getHeight());
 
         PreviewConfig pConfig = new PreviewConfig.Builder()
@@ -88,7 +88,7 @@ public class CameraActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onError(@NonNull ImageCapture.UseCaseError imageCaptureError, @NonNull String message,
+                    public void onError(@NonNull ImageCapture.UseCaseError error, @NonNull String message,
                                         @Nullable Throwable cause) {
                         String msg = "Pic capture failed: " + message;
                         Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
@@ -155,5 +155,10 @@ public class CameraActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    public void goBack(View v) {
+        Intent intent =new Intent(CameraActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
