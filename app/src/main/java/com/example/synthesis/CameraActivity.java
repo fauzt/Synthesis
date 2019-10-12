@@ -2,6 +2,8 @@ package com.example.synthesis;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.media.Image;
@@ -12,6 +14,8 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +35,7 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
 
 import java.io.File;
+import java.nio.ByteBuffer;
 import java.util.List;
 
 import static android.os.Environment.DIRECTORY_PICTURES;
@@ -46,6 +51,11 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_camera);
 
         textureView = findViewById(R.id.view_finder);
@@ -100,11 +110,14 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 File file = new File(getExternalFilesDir(DIRECTORY_PICTURES)
-                        + "/" + System.currentTimeMillis() + ".png");
-                imgCap.takePicture(new ImageCapture.OnImageCapturedListener() {
+                        + "/temp.jpeg");
+                imgCap.takePicture(file, new ImageCapture.OnImageSavedListener() {
                     @Override
-                    public void onCaptureSuccess(ImageProxy image, int rotationDegrees) {
-                        imageAnalysis.getAnalyzer().analyze(image, rotationDegrees);
+                    public void onImageSaved(@NonNull File file) {
+                        String msg = "Image captured";
+                        Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(CameraActivity.this, ResultActivity.class);
+                        startActivity(intent);
                     }
 
                     @Override
@@ -120,7 +133,7 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
-        CameraX.bindToLifecycle((LifecycleOwner) this, preview, imgCap, imageAnalysis);
+        CameraX.bindToLifecycle((LifecycleOwner) this, preview, imgCap);
 
     }
 
@@ -206,6 +219,7 @@ public class CameraActivity extends AppCompatActivity {
                 return;
             }
             Image mediaImage = imageProxy.getImage();
+
             int rotation = degreesToFirebaseRotation(degrees);
             FirebaseVisionImage image =
                     FirebaseVisionImage.fromMediaImage(mediaImage, rotation);
@@ -244,5 +258,4 @@ public class CameraActivity extends AppCompatActivity {
                     });
         }
     }
-
 }
